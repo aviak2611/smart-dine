@@ -6,13 +6,7 @@ It provides users with a smooth experience to browse food items, add them to car
 ---
 
 ## 🌐 Live Demo
-> Add your Vercel link here after deployment  
-
----
-
-## 📸 Project Preview
-
-* *
+[](https://smart-dine-kappa.vercel.app/)
 
 ---
 
@@ -103,6 +97,10 @@ Auto total price calculation
 🔐 Authentication
 Firebase login system
 Protected cart & checkout features
+
+## 🔐 Admin Access
+Admin panel is protected with authentication system.
+For demo purposes, contact developer for admin credentials.
 
 📦 Order System
 Orders stored in Firestore
