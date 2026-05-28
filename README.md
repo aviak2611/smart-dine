@@ -1,36 +1,122 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🍔 SmartDine - Food Delivery Web Application
 
-## Getting Started
+SmartDine is a modern full-stack food delivery web application built using **Next.js, Firebase, and Tailwind CSS**.  
+It provides users with a smooth experience to browse food items, add them to cart, and place orders with authentication and real-time database support.
 
-First, run the development server:
+---
 
-```bash
+## 🌐 Live Demo
+> Add your Vercel link here after deployment  
+
+---
+
+## 📸 Project Preview
+
+* *
+
+---
+
+## 🚀 Features
+
+- 🔐 User Authentication (Login / Signup using Firebase Auth)
+- 🍔 Dynamic Food Listing from Firestore Database
+- 📂 Category-based Filtering (Burger, Pizza, Pasta, Drinks, Dessert)
+- 🛒 Add to Cart System with Quantity Management
+- 💰 Automatic Price Calculation
+- 📦 Checkout Page with Order Placement
+- ☁️ Firebase Firestore Integration for Orders
+- 📱 Fully Responsive UI (Mobile + Desktop)
+- ⚡ Smooth Navigation with Scroll to Sections
+- 🎯 Protected Actions (Only logged-in users can add items)
+
+---
+
+## 🛠️ Tech Stack
+
+**Frontend:**
+- Next.js (App Router)
+- React.js
+- Tailwind CSS
+
+**Backend / Database:**
+- Firebase Authentication
+- Firebase Firestore
+
+**Tools:**
+- Git & GitHub
+- Vercel (Deployment)
+
+---
+
+## 📂 Project Structure
+smart-dine/
+│
+├── src/
+│ ├── app/
+│ ├── components/
+│ ├── context/
+│ ├── lib/
+│ │ └── firebase.ts
+│ └── styles/
+│
+├── public/
+├── .env.local
+├── package.json
+---
+
+## ⚙️ Installation & Setup Instructions
+
+Follow these steps to run the project locally:
+
+### 1️⃣ Clone Repository
+git clone https://github.com/your-username/smart-dine.git
+
+2️⃣ Move to Project Folder
+cd smart-dine
+
+3️⃣ Install Dependencies
+npm install
+
+4️⃣ Setup Environment Variables
+
+Create .env.local file in root directory:
+
+NEXT_PUBLIC_FIREBASE_API_KEY=your_api_key
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_auth_domain
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_project_id
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_storage_bucket
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
+5️⃣ Run Project
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Now open:
+http://localhost:3000
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+🔥 Key Functionalities
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+🛒 Cart System
+Add / remove items
+Increase / decrease quantity
+Auto total price calculation
 
-## Learn More
+🔐 Authentication
+Firebase login system
+Protected cart & checkout features
 
-To learn more about Next.js, take a look at the following resources:
+📦 Order System
+Orders stored in Firestore
+User-specific order tracking ready
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+👨‍💻 Developer
+Avishkar Kesarkar
+Web Developer | React | Next.js | Firebase
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+📌 Future Improvements
+Live order tracking system 🚚
+Admin dashboard 📊
+Payment gateway integration 💳
+Email confirmation system 📧
+⭐ If you like this project
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Give it a ⭐ on GitHub and feel free to contribute!
