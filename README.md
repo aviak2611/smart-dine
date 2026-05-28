@@ -6,7 +6,7 @@ It provides users with a smooth experience to browse food items, add them to car
 ---
 
 ## 🌐 Live Demo
-[](https://smart-dine-kappa.vercel.app/)
+(https://smart-dine-kappa.vercel.app/)
 
 ---
 
