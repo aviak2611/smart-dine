@@ -15,7 +15,7 @@ import { useCart } from "@/context/CartContext";
 
 
 type CartItemType = {
-    id: number;
+    id: string;
     name: string;
     category: string;
     price: number;
@@ -26,9 +26,9 @@ type CartItemType = {
 type NavbarProps = {
     cartCount: number;
     cartItems: CartItemType[];
-    onRemoveFromCart: (id: number) => void;
-    increaseQuantity: (id: number) => void;
-    decreaseQuantity: (id: number) => void;
+    onRemoveFromCart: (id: string) => void;
+    increaseQuantity: (id: string) => void;
+    decreaseQuantity: (id: string) => void;
 };
 
 export default function Navbar({
@@ -78,7 +78,7 @@ export default function Navbar({
         try {
             await signOut(auth);
 
-            // 🔥 CLEAR CART (IMPORTANT FIX)
+            //  CLEAR CART (IMPORTANT FIX)
             clearCart();
 
             // optional safety cleanup
