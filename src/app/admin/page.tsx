@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { db } from "@/lib/firebase";
 import { collection, getDocs } from "firebase/firestore";
+import Link from "next/link";
 
 type CardProps = {
   title: string;
@@ -33,6 +34,8 @@ export default function AdminDashboard() {
 
   const [foodsCount, setFoodsCount] = useState(0);
   const [ordersCount, setOrdersCount] = useState(0);
+  const [usersCount, setUsersCount] = useState(0);
+
   const [revenue, setRevenue] = useState(0);
   const [loading, setLoading] = useState(true);
 
@@ -42,9 +45,15 @@ export default function AdminDashboard() {
 
       const foodsSnap = await getDocs(collection(db, "foods"));
       const ordersSnap = await getDocs(collection(db, "orders"));
+      const usersSnap = await getDocs(collection(db, "users"));
+
 
       setFoodsCount(foodsSnap.size);
       setOrdersCount(ordersSnap.size);
+
+      // To Hide Admin count
+      setUsersCount(usersSnap.size - 1);
+
 
       let total = 0;
 
@@ -88,18 +97,35 @@ export default function AdminDashboard() {
           {/* CARDS */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
-            <Card
-              title="Total Foods"
-              value={foodsCount}
-              icon="🍔"
-            />
+            <Link href="/admin/foods">
+              <div className="cursor-pointer hover:scale-105 transition">
+                <Card
+                  title="Total Foods"
+                  value={foodsCount}
+                  icon="🍔"
+                />
+              </div>
+            </Link>
 
-            <Card
-              title="Total Orders"
-              value={ordersCount}
-              icon="📦"
-            />
+            <Link href="/admin/orders">
+              <div className="cursor-pointer hover:scale-105 transition">
+                <Card
+                  title="Total Orders"
+                  value={ordersCount}
+                  icon="📦"
+                />
+              </div>
+            </Link>
 
+            <Link href="/admin/users">
+              <div className="cursor-pointer hover:scale-105 transition">
+                <Card
+                  title="Total Users"
+                  value={usersCount}
+                  icon="👤"
+                />
+              </div>
+            </Link>
             {/* Revenue Card */}
             <div className="bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-2xl p-5 sm:p-6 shadow-lg hover:scale-[1.02] transition">
 

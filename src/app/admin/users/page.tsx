@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { db } from "@/lib/firebase";
+import { db} from "@/lib/firebase";
 import {
   collection,
   getDocs,
@@ -78,7 +78,7 @@ export default function UsersPage() {
         <div className="grid gap-4">
 
           {users
-            .filter((user) => user.role !== "admin")   // 🔥 ADMIN HIDDEN
+            .filter((user) => user.role !== "admin")   //  ADMIN HIDDEN
             .map((user) => (
               <div
                 key={user.id}
