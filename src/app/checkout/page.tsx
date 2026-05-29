@@ -42,84 +42,83 @@ export default function CheckoutPage() {
     );
 
     // PLACE ORDER
-   const handlePlaceOrder = async () => {
+    const handlePlaceOrder = async () => {
 
-    setErrorMessage("");
+        setErrorMessage("");
 
-    if (!auth.currentUser) {
-        setErrorMessage("⚠ Please login first!");
-        return;
-    }
+        if (!auth.currentUser) {
+            setErrorMessage("⚠ Please login first!");
+            return;
+        }
 
-    if (!firstName || !lastName || !email || !phone || !address) {
-        setErrorMessage("⚠ Please fill all delivery details!");
-        return;
-    }
+        if (!firstName || !lastName || !email || !phone || !address) {
+            setErrorMessage("⚠ Please fill all delivery details!");
+            return;
+        }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const phoneRegex = /^[0-9]{10}$/;
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const phoneRegex = /^[0-9]{10}$/;
 
-    if (!emailRegex.test(email)) {
-        setErrorMessage("⚠ Invalid email address!");
-        return;
-    }
+        if (!emailRegex.test(email)) {
+            setErrorMessage("⚠ Invalid email address!");
+            return;
+        }
 
-    if (!phoneRegex.test(phone)) {
-        setErrorMessage("⚠ Phone must be 10 digits!");
-        return;
-    }
+        if (!phoneRegex.test(phone)) {
+            setErrorMessage("⚠ Phone must be 10 digits!");
+            return;
+        }
 
-    if (!paymentMethod) {
-        setErrorMessage("⚠ Please select payment method!");
-        return;
-    }
+        if (!paymentMethod) {
+            setErrorMessage("⚠ Please select payment method!");
+            return;
+        }
 
-    if (cartItems.length === 0) {
-        setErrorMessage("⚠ Cart is empty!");
-        return;
-    }
+        if (cartItems.length === 0) {
+            setErrorMessage("⚠ Cart is empty!");
+            return;
+        }
 
-    try {
-        setIsLoading(true);
+        try {
+            setIsLoading(true);
+            // place order Function
+            await addDoc(collection(db, "orders"), {
+                userId: auth.currentUser.uid,
+                customerName: `${firstName} ${lastName}`,
+                email,
+                phone,
+                address,
+                paymentMethod,
+                items: cartItems,
+                totalPrice,
+                status: "pending",
+                createdAt: serverTimestamp(),
+            });
 
-        // 🔥 ONLY ADD THIS (NO UI CHANGE)
-        await addDoc(collection(db, "orders"), {
-            userId: auth.currentUser.uid,
-            customerName: `${firstName} ${lastName}`,
-            email,
-            phone,
-            address,
-            paymentMethod,
-            items: cartItems,
-            totalPrice,
-            status: "pending",
-            createdAt: serverTimestamp(),
-        });
+            setSuccessMessage(true);
 
-        setSuccessMessage(true);
+            setCartItems([]);
+            localStorage.removeItem("cartItems");
 
-        setCartItems([]);
-        localStorage.removeItem("cartItems");
+            setTimeout(() => {
+                setSuccessMessage(false);
+            }, 2000);
 
-        setTimeout(() => {
-            setSuccessMessage(false);
-        }, 2000);
-
-    } catch (error) {
-        console.log(error);
-        setErrorMessage("⚠ Order failed!");
-    } finally {
-        setIsLoading(false);
-    }
-};
-useEffect(() => {
-    if (errorMessage) {
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth",
-        });
-    }
-}, [errorMessage]);
+        } catch (error) {
+            console.log(error);
+            setErrorMessage("⚠ Order failed!");
+        } finally {
+            setIsLoading(false);
+        }
+    };
+    useEffect(() => {
+        if (errorMessage) {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth",
+            });
+        }
+    }, [errorMessage]);
     return (
 
         <div className="min-h-screen bg-gray-100 px-4 md:px-6 py-6">
@@ -328,11 +327,10 @@ useEffect(() => {
                                     <div className="flex flex-col gap-3">
 
                                         <label
-                                            className={`border rounded-xl p-4 flex items-center gap-3 cursor-pointer duration-300 ${
-                                                paymentMethod === "COD"
+                                            className={`border rounded-xl p-4 flex items-center gap-3 cursor-pointer duration-300 ${paymentMethod === "COD"
                                                     ? "border-orange-500 bg-orange-50"
                                                     : "border-gray-300 hover:border-orange-500"
-                                            }`}
+                                                }`}
                                         >
 
                                             <input
@@ -354,11 +352,10 @@ useEffect(() => {
                                         </label>
 
                                         <label
-                                            className={`border rounded-xl p-4 flex items-center gap-3 cursor-pointer duration-300 ${
-                                                paymentMethod === "UPI"
+                                            className={`border rounded-xl p-4 flex items-center gap-3 cursor-pointer duration-300 ${paymentMethod === "UPI"
                                                     ? "border-orange-500 bg-orange-50"
                                                     : "border-gray-300 hover:border-orange-500"
-                                            }`}
+                                                }`}
                                         >
 
                                             <input
@@ -380,11 +377,10 @@ useEffect(() => {
                                         </label>
 
                                         <label
-                                            className={`border rounded-xl p-4 flex items-center gap-3 cursor-pointer duration-300 ${
-                                                paymentMethod === "CARD"
+                                            className={`border rounded-xl p-4 flex items-center gap-3 cursor-pointer duration-300 ${paymentMethod === "CARD"
                                                     ? "border-orange-500 bg-orange-50"
                                                     : "border-gray-300 hover:border-orange-500"
-                                            }`}
+                                                }`}
                                         >
 
                                             <input

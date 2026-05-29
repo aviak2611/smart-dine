@@ -52,12 +52,19 @@ export default function OrdersPage() {
     switch (status) {
       case "pending":
         return "bg-yellow-100 text-yellow-700";
-      case "confirmed":
+
+      case "preparing":
         return "bg-blue-100 text-blue-700";
+
+      case "out_for_delivery":
+        return "bg-purple-100 text-purple-700";
+
       case "delivered":
         return "bg-green-100 text-green-700";
+
       case "cancelled":
         return "bg-red-100 text-red-700";
+
       default:
         return "bg-gray-100 text-gray-700";
     }
@@ -144,22 +151,29 @@ export default function OrdersPage() {
               <div className="mt-4 flex flex-wrap gap-2">
 
                 <button
-                  onClick={() => updateStatus(order.id, "confirmed")}
-                  className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm transition"
+                  onClick={() => updateStatus(order.id, "preparing")}
+                  className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm"
                 >
-                  Confirm
+                  Preparing
+                </button>
+
+                <button
+                  onClick={() => updateStatus(order.id, "out_for_delivery")}
+                  className="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded-lg text-sm"
+                >
+                  Out for Delivery
                 </button>
 
                 <button
                   onClick={() => updateStatus(order.id, "delivered")}
-                  className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg text-sm transition"
+                  className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg text-sm"
                 >
                   Delivered
                 </button>
 
                 <button
                   onClick={() => updateStatus(order.id, "cancelled")}
-                  className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg text-sm transition"
+                  className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg text-sm"
                 >
                   Cancel
                 </button>
