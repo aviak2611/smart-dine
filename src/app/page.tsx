@@ -26,7 +26,7 @@ type FoodType = {
 
 export default function Home() {
 
-// These manage:Selected category,Food list, Loading state
+// These manage: Selected category,Food list, Loading state
   const [activeCategory, setActiveCategory] = useState("All");
   const [foods, setFoods] = useState<FoodType[]>([]);
   const [loading, setLoading] = useState(true);
