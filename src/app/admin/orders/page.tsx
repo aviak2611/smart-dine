@@ -7,6 +7,8 @@ import {
   getDocs,
   updateDoc,
   doc,
+  query,
+  orderBy
 } from "firebase/firestore";
 
 type Order = {
@@ -27,8 +29,12 @@ export default function OrdersPage() {
   const fetchOrders = async () => {
     setLoading(true);
 
-    const snap = await getDocs(collection(db, "orders"));
+    const q = query(
+      collection(db, "orders"),
+      orderBy("createdAt", "desc")
+    );
 
+    const snap = await getDocs(q);
     const data = snap.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
