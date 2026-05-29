@@ -1,9 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
+
+// Used to fetch data from Firebase database
 import { db } from "@/lib/firebase";
 import { collection, getDocs } from "firebase/firestore";
 
+// Components
 import CategoryFilter from "@/components/CategoryFilter";
 import FoodCard from "@/components/FoodCard";
 import Hero from "@/components/Hero";
@@ -11,6 +14,7 @@ import Navbar from "@/components/Navbar";
 import { useCart } from "@/context/CartContext";
 import Footer from "@/components/Footer";
 
+// This defines structure of food data
 type FoodType = {
   id: string;
   name: string;
@@ -21,13 +25,16 @@ type FoodType = {
 };
 
 export default function Home() {
+
+// These manage:Selected category,Food list, Loading state
   const [activeCategory, setActiveCategory] = useState("All");
   const [foods, setFoods] = useState<FoodType[]>([]);
   const [loading, setLoading] = useState(true);
 
+// This connects global cart system
   const { cartItems, setCartItems } = useCart();
 
-  // FETCH FOODS
+  // This fetches data from Firestore collection: foods
   const fetchFoods = async () => {
     try {
       setLoading(true);

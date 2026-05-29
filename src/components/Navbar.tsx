@@ -91,7 +91,7 @@ export default function Navbar({
     };
 
     return (
-        <nav className="bg-white shadow-md px-6 py-4 sticky top-0 z-50">
+        <nav className="bg-white shadow-md px-6 py-4 fixed top-0 left-0 w-full z-[999]">
 
             {/* HEADER */}
             <div className="max-w-7xl mx-auto flex items-center justify-between">
@@ -123,6 +123,7 @@ export default function Navbar({
                         className="relative cursor-pointer"
                     >
                         <FaShoppingCart className="text-2xl text-gray-800 hover:text-orange-500" />
+
                         {cartCount > 0 && (
                             <span className="absolute -top-2 -right-3 bg-orange-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
                                 {cartCount}
@@ -151,17 +152,21 @@ export default function Navbar({
 
                 {/* MOBILE ICON */}
                 <div
-                    className="md:hidden text-2xl text-orange-500"
+                    className="md:hidden relative text-2xl text-orange-500 cursor-pointer"
                     onClick={() => setMenuOpen(!menuOpen)}
                 >
                     {menuOpen ? <FaTimes /> : <FaBars />}
-                </div>
 
+                    {/* 🔥 BADGE ON HAMBURGER */}
+                    {cartCount > 0 && (
+                        <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full animate-ping" />
+                    )}
+                </div>
             </div>
 
             {/* MOBILE MENU */}
             {menuOpen && (
-                <ul className="md:hidden flex flex-col gap-3 bg-white mt-4 p-5 rounded-xl shadow-lg">
+                <ul className="md:hidden flex flex-col items-center gap-5 bg-white mt-4 p-6 rounded-xl shadow-lg text-center">
 
                     <li>
                         <Link
@@ -174,13 +179,15 @@ export default function Navbar({
                     </li>
 
                     <li>
-                        <Link
-                            href="/foods"
-                            onClick={closeMenu}
-                            className="text-gray-900 font-semibold hover:text-orange-500"
-                        >
+                        <button
+                            onClick={() => {
+                                document.getElementById("foods")?.scrollIntoView({
+                                    behavior: "smooth",
+                                });
+                            }}
+                            className="text-gray-900 font-semibold hover:text-orange-500"                        >
                             Menu
-                        </Link>
+                        </button>
                     </li>
 
                     <li
@@ -188,27 +195,35 @@ export default function Navbar({
                             setCartOpen(!cartOpen);
                             closeMenu();
                         }}
-                        className="flex items-center gap-2 text-gray-900 font-semibold"
+                        className="relative flex items-center gap-2 text-gray-900 font-semibold"
                     >
                         <FaShoppingCart />
-                        Cart
+
+                        {/*  ADD BADGE HERE */}
+                        {cartCount > 0 && (
+                            <span className="absolute -top-2 left-4 bg-orange-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
+                                {cartCount}
+                            </span>
+                        )}
+
+
                     </li>
 
                     {!user ? (
-                        <li>
+                        <li className="w-full">
                             <Link
                                 href="/login"
                                 onClick={closeMenu}
-                                className="text-gray-900 font-semibold hover:text-orange-500"
+                                className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-xl w-full font-semibold"
                             >
                                 Login
                             </Link>
                         </li>
                     ) : (
-                        <li>
+                        <li className="w-full">
                             <button
                                 onClick={handleLogout}
-                                className="bg-red-500 text-white px-4 py-2 rounded-xl w-full font-semibold"
+                                className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-xl w-full font-semibold"
                             >
                                 Logout
                             </button>
