@@ -118,6 +118,12 @@ export default function Navbar({
                             Menu
                         </button>
                     </li>
+                    <li>
+                        <Link href="/orders" className="hover:text-orange-500">
+                            Orders
+                        </Link>
+                    </li>
+
                     <li
                         onClick={() => setCartOpen(!cartOpen)}
                         className="relative cursor-pointer"
@@ -188,6 +194,15 @@ export default function Navbar({
                             className="text-gray-900 font-semibold hover:text-orange-500"                        >
                             Menu
                         </button>
+                    </li>
+                    <li>
+                        <Link
+                            href="/orders"
+                            onClick={closeMenu}
+                            className="text-gray-900 font-semibold hover:text-orange-500"
+                        >
+                            Orders
+                        </Link>
                     </li>
 
                     <li
