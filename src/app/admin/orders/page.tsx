@@ -4,11 +4,11 @@ import { useEffect, useState } from "react";
 import { db } from "@/lib/firebase";
 import {
   collection,
-  getDocs,
   updateDoc,
   doc,
   query,
-  orderBy
+  orderBy,
+  onSnapshot
 } from "firebase/firestore";
 
 type Order = {
@@ -26,31 +26,29 @@ export default function OrdersPage() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const fetchOrders = async () => {
-    setLoading(true);
-
+  // 🔥 REAL-TIME ORDERS (NO REFRESH NEEDED)
+  useEffect(() => {
     const q = query(
       collection(db, "orders"),
       orderBy("createdAt", "desc")
     );
 
-    const snap = await getDocs(q);
-    const data = snap.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    })) as Order[];
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const data = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      })) as Order[];
 
-    setOrders(data);
-    setLoading(false);
-  };
+      setOrders(data);
+      setLoading(false);
+    });
 
-  useEffect(() => {
-    fetchOrders();
+    return () => unsubscribe();
   }, []);
 
+  // 🔥 UPDATE STATUS
   const updateStatus = async (id: string, status: string) => {
     await updateDoc(doc(db, "orders", id), { status });
-    fetchOrders();
   };
 
   // 🔥 STATUS COLOR FUNCTION
